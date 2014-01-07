@@ -91,7 +91,8 @@ bool RE2::Set::Compile() {
   return prog_ != NULL;
 }
 
-bool RE2::Set::Match(const StringPiece& text, vector<int>* v) const {
+bool RE2::Set::Match(const StringPiece& text, vector<int>* v, StringPiece* submatch) const
+{
   if (!compiled_) {
     LOG(DFATAL) << "RE2::Set::Match without Compile";
     return false;
@@ -99,7 +100,7 @@ bool RE2::Set::Match(const StringPiece& text, vector<int>* v) const {
   v->clear();
   bool failed;
   bool ret = prog_->SearchDFA(text, text, Prog::kAnchored,
-                              Prog::kManyMatch, NULL, &failed, v);
+                              Prog::kManyMatch, submatch, &failed, v);
   if (failed)
     LOG(DFATAL) << "RE2::Set::Match: DFA ran out of cache space";
 

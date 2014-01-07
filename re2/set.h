@@ -37,7 +37,7 @@ class RE2::Set {
 
   // Match returns true if text matches any of the regexps in the set.
   // If so, it fills v with the indices of the matching regexps.
-  bool Match(const StringPiece& text, vector<int>* v) const;
+  bool Match(const StringPiece& text, vector<int>* v, StringPiece* submatch = NULL) const;
 
  private:
   RE2::Options options_;
